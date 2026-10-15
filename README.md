@@ -54,3 +54,7 @@ Mở thư mục dự án bằng VS Code hoặc Antigravity. Nên chạy qua Live
 - Chưa có trang quản trị CRUD khóa học vì chưa có xác thực; thêm/sửa/xóa khóa học thực hiện qua Supabase Dashboard.
 - Chạy local: `npx serve .` hoặc Live Server. Không cần bước build.
 - Link GitHub: https://github.com/vampirer1986-Nguyen/techup-academy · Website: https://techup-academy.vampirer1986.workers.dev
+
+## Quản trị khóa học & xuất CSV
+- `courses.html`: nút **Xuất danh sách khóa học (CSV)** (tạo file ngay trên trình duyệt).
+- `admin.html`: đăng nhập bằng Supabase Auth, thêm/sửa/xóa khóa học. Quyền ghi được kiểm tra bằng RLS (`supabase/admin.sql`): chỉ email nằm trong bảng `admin_emails` mới được ghi. Tài khoản admin được tạo thủ công trong Supabase Dashboard (không có đăng ký công khai).

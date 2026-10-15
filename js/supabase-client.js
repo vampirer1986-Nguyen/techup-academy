@@ -12,7 +12,7 @@ const Supa = (() => {
     COURSE_NOT_FOUND: "Không tìm thấy khóa học."
   };
 
-  async function request(path, { method = "GET", body } = {}) {
+  async function request(path, { method = "GET", body, token, prefer } = {}) {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       throw new DbError("Chưa cấu hình Supabase (js/config.js).", "NO_CONFIG");
     }
@@ -22,7 +22,9 @@ const Supa = (() => {
         method,
         headers: {
           apikey: SUPABASE_ANON_KEY,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...(prefer ? { Prefer: prefer } : {})
         },
         body: body ? JSON.stringify(body) : undefined
       });
@@ -36,7 +38,12 @@ const Supa = (() => {
       const raw = (data && (data.message || data.error)) || "";
       const key = Object.keys(MESSAGES).find(k => raw.includes(k));
       if (key) throw new DbError(MESSAGES[key], key);
-      if (data && data.code === "23514") throw new DbError("Dữ liệu không hợp lệ (kiểm tra họ tên, email, số điện thoại).", "CHECK");
+      if (data && data.code === "23514") throw new DbError("Dữ liệu không hợp lệ (kiểm tra các trường đã nhập).", "CHECK");
+      if (data && data.code === "23505") throw new DbError("Dữ liệu bị trùng (ví dụ slug đã tồn tại).", "DUP");
+      if (data && data.code === "23503") throw new DbError("Khóa học đã có đăng ký nên không thể xóa.", "FK");
+      if (token && (res.status === 401 || res.status === 403 || (data && data.code === "42501"))) {
+        throw new DbError("Phiên đăng nhập hết hạn hoặc tài khoản không có quyền quản trị.", "FORBIDDEN");
+      }
       throw new DbError("Thao tác thất bại. Vui lòng thử lại sau.", "HTTP_" + res.status);
     }
     return data;

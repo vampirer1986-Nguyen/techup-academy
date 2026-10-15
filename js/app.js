@@ -53,7 +53,7 @@ function renderChrome() {
       el("div", { class: "col-md-4" }, el("h6", {}, "Liên hệ"),
         el("p", { class: "mb-0 small" }, "Email: vampirer1986@gmail.com", el("br"), "Điện thoại: 0919 601 670", el("br"), "Địa chỉ: Số 311, đường số 8, phường An Khánh, TP Hồ Chí Minh")),
       el("div", { class: "col-md-3" }, el("h6", {}, "Liên kết nhanh"),
-        el("a", { href: "./courses.html" }, "Khóa học"), el("br"), el("a", { href: "./about.html" }, "Về chúng tôi"))),
+        el("a", { href: "./courses.html" }, "Khóa học"), el("br"), el("a", { href: "./about.html" }, "Về chúng tôi"), el("br"), el("a", { href: "./admin.html" }, "Quản trị"))),
     el("hr"), el("p", { class: "small mb-0" }, "© 2026 TechUp Academy – Đồ án học tập."))));
 }
 
@@ -121,6 +121,9 @@ const Pages = {
       all = l;
       [...new Set(l.map(c => c.category))].forEach(c => $("#cat").append(el("option", { value: c }, c)));
       apply();
+      const btn = $("#export-csv");
+      btn.disabled = !l.length;
+      btn.addEventListener("click", () => { Courses.downloadCsv(all); toast("Đã xuất file techup-courses.csv"); });
     }).catch(e => stateBox(grid, "error", e.message));
     ["q", "cat", "lv", "sort"].forEach(id => $("#" + id).addEventListener("input", apply));
   },
