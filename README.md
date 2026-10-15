@@ -53,4 +53,4 @@ Mở thư mục dự án bằng VS Code hoặc Antigravity. Nên chạy qua Live
 - Trang: `index.html`, `about.html`, `course-detail.html?id=...`, `courses.html`, `my-registrations.html`.
 - Chưa có trang quản trị CRUD khóa học vì chưa có xác thực; thêm/sửa/xóa khóa học thực hiện qua Supabase Dashboard.
 - Chạy local: `npx serve .` hoặc Live Server. Không cần bước build.
-- Link GitHub: _(điền sau khi push)_ · Website: _(điền sau khi deploy)_
+- Link GitHub: https://github.com/vampirer1986-Nguyen/techup-academy · Website: https://techup-academy.vampirer1986.workers.dev
