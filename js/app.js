@@ -155,13 +155,21 @@ const Pages = {
         el("p", {}, "🏷 Danh mục: ", c.category),
         el("a", { class: "btn btn-primary w-100", href: "#dang-ky" }, "Đăng ký khóa học"))))));
     $("#reg-section").classList.remove("d-none");
-    $("#reg-course").textContent = c.title;
     const form = $("#reg-form");
+    const select = $("#course");
+    select.append(el("option", { value: c.id }, c.title));
+    select.value = c.id;
+    Courses.list().then(all => {
+      select.replaceChildren(...all.map(x => el("option", { value: x.id }, x.title)));
+      select.value = c.id;
+    }).catch(() => { /* giữ lại khóa học hiện tại nếu không tải được danh sách */ });
     form.addEventListener("submit", async ev => {
       ev.preventDefault();
       const v = { name: form.name.value, email: form.email.value, phone: form.phone.value };
       const errs = Registrations.validate(v);
-      for (const f of ["name", "email", "phone"]) {
+      const courseId = select.value;
+      if (!/^[0-9a-f-]{36}$/i.test(courseId)) errs.course = "Vui lòng chọn khóa học.";
+      for (const f of ["course", "name", "email", "phone"]) {
         form[f].classList.toggle("is-invalid", !!errs[f]);
         $("#err-" + f).textContent = errs[f] || "";
       }
@@ -170,8 +178,9 @@ const Pages = {
       btn.disabled = true;
       btn.textContent = "Đang gửi...";
       try {
-        const r = await Registrations.create(c.id, v.name, v.email, v.phone);
+        const r = await Registrations.create(courseId, v.name, v.email, v.phone);
         form.reset();
+        select.value = courseId;
         $("#reg-result").replaceChildren(el("div", { class: "alert alert-success" },
           "Đăng ký thành công! Mã đăng ký: ", el("strong", {}, r.id), ". ",
           el("a", { href: "./my-registrations.html" }, "Xem / cập nhật / hủy đăng ký của tôi")));

@@ -16,8 +16,8 @@
     <section id="reg-section" class="d-none mt-5">
       <div class="card shadow-sm" id="dang-ky"><div class="card-body">
         <h2 class="h4">Đăng ký khóa học</h2>
-        <p class="text-muted">Khóa học: <strong id="reg-course"></strong></p>
         <form id="reg-form" novalidate>
+          <div class="mb-3"><label class="form-label" for="course">Khóa học *</label><select class="form-select" id="course" name="course" required></select><div class="invalid-feedback" id="err-course"></div></div>
           <div class="mb-3"><label class="form-label" for="name">Họ tên *</label><input class="form-control" id="name" name="name" autocomplete="name" required><div class="invalid-feedback" id="err-name"></div></div>
           <div class="mb-3"><label class="form-label" for="email">Email *</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" required><div class="invalid-feedback" id="err-email"></div></div>
           <div class="mb-3"><label class="form-label" for="phone">Số điện thoại (không bắt buộc)</label><input class="form-control" id="phone" name="phone" type="tel" autocomplete="tel"><div class="invalid-feedback" id="err-phone"></div></div>
