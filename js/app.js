@@ -48,13 +48,12 @@ function renderChrome() {
   document.body.append(el("footer", { class: "site-footer mt-5 py-4" }, el("div", { class: "container" },
     el("div", { class: "row g-3" },
       el("div", { class: "col-md-5" }, el("h5", { class: "d-flex align-items-center gap-2" },
-          el("span", { class: "logo-badge" }, el("img", { src: "./assets/images/logo.png", alt: "", width: "28", height: "28" })), "TechUp Academy"),
-        el("p", { class: "mb-0 small" }, "Thương hiệu giả lập phục vụ đồ án học tập. Học phí, lịch học và giảng viên đều là dữ liệu minh họa.")),
+          el("span", { class: "logo-badge" }, el("img", { src: "./assets/images/logo.png", alt: "", width: "28", height: "28" })), "TechUp Academy")),
       el("div", { class: "col-md-4" }, el("h6", {}, "Liên hệ"),
         el("p", { class: "mb-0 small" }, "Email: vampirer1986@gmail.com", el("br"), "Điện thoại: 0919 601 670", el("br"), "Địa chỉ: Số 311, đường số 8, phường An Khánh, TP Hồ Chí Minh")),
       el("div", { class: "col-md-3" }, el("h6", {}, "Liên kết nhanh"),
         el("a", { href: "./courses.html" }, "Khóa học"), el("br"), el("a", { href: "./about.html" }, "Về chúng tôi"), el("br"), el("a", { href: "./admin.html" }, "Quản trị"))),
-    el("hr"), el("p", { class: "small mb-0" }, "© 2026 TechUp Academy – Đồ án học tập."))));
+    el("hr"), el("p", { class: "small mb-0" }, "© 2026 TechUp Academy"))));
 }
 
 function stateBox(container, kind, text) {
