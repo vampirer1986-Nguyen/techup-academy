@@ -1,0 +1,7 @@
+# Thông tin nhạy cảm - KHÔNG đưa lên GitHub
+supabase.txt
+prompt_techup-academy.txt
+*.zip
+.env
+.env.*
+node_modules/

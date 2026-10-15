@@ -1,0 +1,7 @@
+id,title,slug,category,level,description,full_description,price,duration,image_url,is_featured
+11111111-1111-4111-8111-000000000001,HTML & CSS cho người mới bắt đầu,html-css-co-ban,Web,Beginner,Xây dựng trang web đầu tiên với HTML5 và CSS3 hiện đại.,"Cấu trúc HTML5; CSS Selector, Flexbox, Grid; Responsive",990000,6 tuần,,true
+11111111-1111-4111-8111-000000000002,JavaScript ES6+ từ cơ bản đến thực hành,javascript-es6,Lập trình,Intermediate,"Làm chủ JavaScript hiện đại: DOM, async và gọi API.","DOM và sự kiện; Promise, async/await; fetch API",1490000,8 tuần,,true
+11111111-1111-4111-8111-000000000003,Frontend với Bootstrap 5,frontend-bootstrap-5,Web,Beginner,Dựng giao diện responsive nhanh chóng với Bootstrap 5.,"Grid system; Navbar, Card, Modal, Form",790000,4 tuần,,false
+11111111-1111-4111-8111-000000000004,Python cơ bản,python-co-ban,Lập trình,Beginner,Bước đầu làm quen với lập trình qua ngôn ngữ Python.,"Biến, vòng lặp, hàm; Tệp và CSV; OOP cơ bản",1190000,6 tuần,,true
+11111111-1111-4111-8111-000000000005,UI/UX căn bản,ui-ux-can-ban,Thiết kế,Beginner,Hiểu quy trình thiết kế trải nghiệm và giao diện người dùng.,"Persona; Wireframe; Prototype",1090000,5 tuần,,false
+11111111-1111-4111-8111-000000000006,Nhập môn Trí tuệ nhân tạo (AI),nhap-mon-ai,AI,Intermediate,"Khám phá khái niệm AI, machine learning và ứng dụng thực tế.","AI/ML/DL; Huấn luyện mô hình đơn giản; Đạo đức AI",1690000,6 tuần,,true
