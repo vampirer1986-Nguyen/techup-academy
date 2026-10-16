@@ -14,7 +14,7 @@ Pages.admin = function () {
     who.replaceChildren();
     if (s) {
       who.append(`Đã đăng nhập: ${s.email} `, el("button", { class: "btn btn-outline-light btn-sm ms-2", type: "button",
-        onclick: () => { Auth.logout(); showState(); } }, "Đăng xuất"));
+        onclick: () => { Auth.logout(); location.href = "index.html"; } }, "Đăng xuất"));
       load();
     }
   }

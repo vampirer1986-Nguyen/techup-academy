@@ -67,9 +67,20 @@ function stateBox(container, kind, text) {
   }
 }
 
+// Ảnh khóa học (image_url); không có ảnh hoặc ảnh lỗi thì dùng biểu tượng theo danh mục.
+function courseVisual(c, cls) {
+  const box = el("div", { class: cls, role: "img", "aria-label": c.category }, ICONS[c.category] || "📘");
+  if (c.image_url) {
+    const img = el("img", { src: c.image_url, alt: "", referrerpolicy: "no-referrer" });
+    img.onload = () => box.replaceChildren(img);
+    box.classList.add("has-image");
+  }
+  return box;
+}
+
 function courseCard(c) {
   return el("div", { class: "col-md-6 col-lg-4" }, el("div", { class: "card course-card h-100" },
-    el("div", { class: "course-thumb", role: "img", "aria-label": c.category }, ICONS[c.category] || "📘"),
+    courseVisual(c, "course-thumb"),
     el("div", { class: "card-body d-flex flex-column" },
       el("div", { class: "mb-2" },
         el("span", { class: "badge text-bg-primary me-1" }, c.category),
@@ -144,7 +155,7 @@ const Pages = {
     const intro = lines.filter(l => !l.startsWith("- ")).map(l => el("p", {}, l));
     box.replaceChildren(el("div", { class: "row g-4" },
       el("div", { class: "col-lg-8" },
-        el("div", { class: "course-hero mb-3", role: "img", "aria-label": c.category }, ICONS[c.category] || "📘"),
+        courseVisual(c, "course-hero mb-3"),
         el("h1", { class: "h2" }, c.title), el("p", { class: "lead" }, c.description), intro,
         outline.length ? [el("h2", { class: "h5 mt-4" }, "Nội dung khóa học"), el("ul", {}, outline)] : null),
       el("div", { class: "col-lg-4" }, el("div", { class: "card shadow-sm" }, el("div", { class: "card-body" },
