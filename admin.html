@@ -49,6 +49,18 @@
             <div class="col-md-4"><label class="form-label" for="c-duration">Thời lượng *</label><input class="form-control" id="c-duration" maxlength="50" placeholder="6 tuần"></div>
             <div class="col-md-4"><label class="form-label" for="c-price">Học phí (₫) *</label><input class="form-control" id="c-price" type="number" min="0" step="1000"></div>
             <div class="col-md-8"><label class="form-label" for="c-image">URL ảnh (không bắt buộc)</label><input class="form-control" id="c-image" type="url" placeholder="https://..."></div>
+            <div class="col-12"><fieldset class="discount-box">
+              <legend class="h6 float-none w-auto px-1 mb-2">Thiết lập giảm giá</legend>
+              <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="c-disc-on"><label class="form-check-label" for="c-disc-on">Bật giảm giá cho khóa học này</label></div>
+              <div id="disc-fields" class="row g-3">
+                <div class="col-md-6"><label class="form-label" for="c-disc-type">Hình thức giảm giá</label>
+                  <select class="form-select" id="c-disc-type"><option value="percentage">Giảm theo phần trăm (%)</option><option value="fixed">Giảm theo số tiền cố định (VNĐ)</option></select></div>
+                <div class="col-md-6"><label class="form-label" for="c-disc-value" id="disc-value-label">Phần trăm giảm (%)</label>
+                  <input class="form-control" id="c-disc-value" type="number" min="0" step="any" inputmode="decimal"></div>
+                <div class="col-12"><div class="small text-muted mb-1">Xem trước giá hiển thị cho học viên:</div><div id="disc-preview" aria-live="polite"></div>
+                  <div id="disc-err" class="text-danger small mt-1" aria-live="polite"></div></div>
+              </div>
+            </fieldset></div>
             <div class="col-12"><label class="form-label" for="c-desc">Mô tả ngắn *</label><textarea class="form-control" id="c-desc" rows="2" maxlength="300"></textarea></div>
             <div class="col-12"><label class="form-label" for="c-full">Nội dung chi tiết (mỗi mục nội dung bắt đầu bằng "- ")</label><textarea class="form-control" id="c-full" rows="5"></textarea></div>
             <div class="col-12"><div class="form-check"><input class="form-check-input" type="checkbox" id="c-featured"><label class="form-check-label" for="c-featured">Khóa học nổi bật</label></div></div>

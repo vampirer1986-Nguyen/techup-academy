@@ -1,3 +1,21 @@
+// Tính giá (nguồn duy nhất cho cả giao diện người dùng lẫn form admin). price = giá gốc.
+// Trả về { original, final, discounted, saved, type, value, error }. Cấu hình không hợp lệ => không giảm.
+const Pricing = {
+  compute(c) {
+    const original = Number(c.price) || 0;
+    const base = { original, final: original, discounted: false, saved: 0, type: null, value: 0, error: "" };
+    if (!c.discount_enabled) return base;
+    const type = c.discount_type, value = Number(c.discount_value);
+    if (type !== "percentage" && type !== "fixed") return { ...base, error: "Vui lòng chọn hình thức giảm giá." };
+    if (c.discount_value === "" || c.discount_value == null || !Number.isFinite(value) || value <= 0)
+      return { ...base, error: "Giá trị giảm phải là số lớn hơn 0." };
+    if (type === "percentage" && value >= 100) return { ...base, error: "Phần trăm giảm phải nhỏ hơn 100% (giá sau giảm phải lớn hơn 0)." };
+    const final = Math.round(type === "percentage" ? original * (1 - value / 100) : original - value);
+    if (final <= 0) return { ...base, error: "Mức giảm phải nhỏ hơn giá gốc để giá sau giảm lớn hơn 0." };
+    return { original, final, discounted: true, saved: original - final, type, value, error: "" };
+  }
+};
+
 // Truy vấn khóa học
 const Courses = {
   list() {
@@ -17,7 +35,7 @@ const Courses = {
   },
   // --- Xuất CSV (chạy hoàn toàn ở trình duyệt) ---
   toCsv(list) {
-    const cols = ["id", "title", "slug", "category", "level", "description", "full_description", "price", "duration", "image_url", "is_featured"];
+    const cols = ["id", "title", "slug", "category", "level", "description", "full_description", "price", "discount_enabled", "discount_type", "discount_value", "final_price", "duration", "image_url", "is_featured"];
     const esc = v => {
       let s = v == null ? "" : String(v);
       if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;   // chống CSV/formula injection khi mở bằng Excel

@@ -68,3 +68,6 @@ Tạo `js/config.example.js` hoặc `js/config.js` với placeholder:
 - `SUPABASE_ANON_KEY`
 
 Không ghi giá trị bí mật. Nếu dùng file cấu hình thực tế có key, chỉ publishable/anon key được phép đưa vào frontend; mọi secret phải nằm ngoài frontend.
+
+## Giảm giá khóa học
+Chạy `supabase/discount.sql` (sau schema.sql và admin.sql). Thêm cột `discount_enabled`, `discount_type` (percentage|fixed), `discount_value` và cột sinh tự động `final_price`; `price` vẫn là giá gốc. Ràng buộc `courses_discount_chk` kiểm tra tại database; quyền ghi dùng policy admin sẵn có.
