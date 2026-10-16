@@ -24,3 +24,8 @@ a:focus-visible, button:focus-visible, .form-control:focus, .form-select:focus {
 @media (max-width: 576px) { .hero { padding: 3rem 0; } }
 .logo-badge { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: #fff; border-radius: 8px; }
 .logo-badge img { object-fit: contain; }
+.price-final { color: #dc2626; font-weight: 700; }
+.price-old { text-decoration: line-through; }
+.price-badge { background: #fee2e2; color: #b91c1c; font-weight: 600; white-space: normal; text-align: left; }
+.price-box { min-width: 0; }
+.discount-box { border: 1px solid #dbeafe; background: #f8fbff; border-radius: .5rem; padding: 1rem; }

@@ -13,6 +13,19 @@ function el(tag, attrs = {}, ...children) {
 }
 
 const fmtPrice = p => new Intl.NumberFormat("vi-VN").format(p) + " ₫";
+// Giá khóa học: giá gốc, hoặc giá gốc gạch ngang + giá ưu đãi + nhãn khi đang giảm
+function discountLabel(p) {
+  return p.type === "percentage" ? `-${new Intl.NumberFormat("vi-VN").format(p.value)}%` : `Tiết kiệm ${fmtPrice(p.saved)}`;
+}
+function priceBlock(c, big = false) {
+  const p = Pricing.compute(c), cls = big ? "h3" : "";
+  if (!p.discounted) return el("div", { class: "price-box" }, el("strong", { class: `text-primary ${cls}` }, fmtPrice(p.original)));
+  return el("div", { class: "price-box" },
+    el("div", { class: "d-flex flex-wrap align-items-baseline column-gap-2" },
+      el("strong", { class: `price-final ${cls}` }, fmtPrice(p.final)),
+      el("del", { class: "price-old small text-muted" }, fmtPrice(p.original))),
+    el("span", { class: "badge price-badge" }, discountLabel(p)));
+}
 const LEVELS = { Beginner: "Cơ bản", Intermediate: "Trung cấp", Advanced: "Nâng cao" };
 const ICONS = { Web: "🌐", "Lập trình": "💻", "Thiết kế": "🎨", AI: "🤖" };
 
@@ -87,8 +100,8 @@ function courseCard(c) {
         el("span", { class: "badge text-bg-light border" }, LEVELS[c.level] || c.level)),
       el("h3", { class: "h5 card-title" }, c.title),
       el("p", { class: "card-text text-muted flex-grow-1" }, c.description),
-      el("div", { class: "d-flex justify-content-between align-items-center mb-3" },
-        el("strong", { class: "text-primary" }, fmtPrice(c.price)),
+      el("div", { class: "d-flex justify-content-between align-items-end gap-2 mb-3" },
+        priceBlock(c),
         el("span", { class: "small text-muted" }, "⏱ " + c.duration)),
       el("a", { class: "btn btn-primary", href: `./course-detail.html?id=${encodeURIComponent(c.id)}` }, "Xem chi tiết"))));
 }
@@ -121,7 +134,7 @@ const Pages = {
     const apply = () => {
       const q = $("#q").value.trim().toLowerCase(), cat = $("#cat").value, lv = $("#lv").value, sort = $("#sort").value;
       const r = all.filter(c => (!q || c.title.toLowerCase().includes(q)) && (!cat || c.category === cat) && (!lv || c.level === lv));
-      if (sort) r.sort((a, b) => sort === "asc" ? a.price - b.price : b.price - a.price);
+      if (sort) r.sort((a, b) => sort === "asc" ? Pricing.compute(a).final - Pricing.compute(b).final : Pricing.compute(b).final - Pricing.compute(a).final);
       grid.replaceChildren();
       if (!r.length) return stateBox(grid, "info", "Không tìm thấy khóa học phù hợp.");
       grid.append(...r.map(courseCard));
@@ -159,7 +172,7 @@ const Pages = {
         el("h1", { class: "h2" }, c.title), el("p", { class: "lead" }, c.description), intro,
         outline.length ? [el("h2", { class: "h5 mt-4" }, "Nội dung khóa học"), el("ul", {}, outline)] : null),
       el("div", { class: "col-lg-4" }, el("div", { class: "card shadow-sm" }, el("div", { class: "card-body" },
-        el("p", { class: "h3 text-primary" }, fmtPrice(c.price)),
+        el("div", { class: "mb-3" }, priceBlock(c, true)),
         el("p", { class: "mb-1" }, "⏱ Thời lượng: ", c.duration),
         el("p", { class: "mb-1" }, "📊 Trình độ: ", LEVELS[c.level] || c.level),
         el("p", {}, "🏷 Danh mục: ", c.category),
